@@ -105,6 +105,25 @@ g:snipMate.scope_aliases        A |Dictionary| associating certain filetypes
                                 "ruby" or contains "ruby" as an entry in the
                                 case of dotted filetypes.
 
+g:snipMate_no_default_aliases
+                                When set to 1, prevents SnipMate from loading
+                                default scope aliases. The defaults are:
+                                    Filetype    Alias ~
+                                    cpp         c
+                                    cu          c
+                                    eruby       eruby-rails,html
+                                    html        javascript
+                                    mxml        actionscript
+                                    objc        c
+                                    php         php,html,javascript
+                                    ur          html,javascript
+                                    xhtml       html
+                                Note: Setting this option does not disable
+                                scope aliases entirely, only those made by
+                                SnipMate itself. Any scope aliases created by
+                                the user or someone else will still be in
+                                effect.
+
 g:snipMate['no_match_completion_feedkeys_chars']
                                 A string inserted when no match for a trigger
                                 is found. By default a tab is inserted
@@ -119,26 +138,32 @@ The mappings SnipMate uses can be customized with the |:map| commands. For
 example, to change the key that triggers snippets and moves to the next
 tabstop, >
 
-        :imap <C-J> <Plug>SnipMateNextOrTrigger
-        :smap <C-J> <Plug>SnipMateNextOrTrigger
+        :imap <C-J> <Plug>snipMateNextOrTrigger
+        :smap <C-J> <Plug>snipMateNextOrTrigger
 
 The list of possible <Plug> mappings is as follows:
 
-<Plug>SnipMateNextOrTrigger     Default: <Tab>          Mode: Insert, Select
+<Plug>snipMateNextOrTrigger     Default: <Tab>          Mode: Insert, Select
                                 Jumps to the next tab stop or, if none exists,
                                 try to expand a snippet. Use in both insert
                                 and select modes.
 
-<Plug>SnipMateBack              Default: <S-Tab>        Mode: Insert, Select
+<Plug>snipMateTrigger           Default: unmapped       Mode: Insert
+                                Try to expand a snippet regardless of any
+                                existing snippet expansion. If done within an
+                                expanded snippet, the outer snippet's tab
+                                stops are lost, unless expansion failed.
+
+<Plug>snipMateBack              Default: <S-Tab>        Mode: Insert, Select
                                 Jump to the previous tab stop, if it exists.
                                 Use in both insert and select modes.
 
-<Plug>SnipMateShow              Default: <C-R><Tab>     Mode: Insert
+<Plug>snipMateShow              Default: <C-R><Tab>     Mode: Insert
                                 Show all available snippets (that start with
                                 the previous text, if it exists). Use in
                                 insert mode.
 
-<Plug>SnipMateVisual            Default: <Tab>          Mode: Visual
+<Plug>snipMateVisual            Default: <Tab>          Mode: Visual
                                 See |SnipMate-visual|.
 
 Additionally, <CR> is mapped in visual mode in .snippets files for retabbing
@@ -169,7 +194,6 @@ Multiple snippets can be defined in *.snippets files. Each snippet definition
 looks something like: >
 
     snippet trigger optional description
-    guard left_from_cursor='^\s*'
         expanded text
         more expanded text
 
@@ -177,9 +201,6 @@ looks something like: >
 The description is optional. If it is left out and a second snippet inside the
 same .snippets file uses the same trigger, the second one will overwrite the
 first. Otherwise multisnip is used.
-
-The guard condition line is also optional. It can be used to make a snippet
-available only in some cases. The value should be a VimL expression.
 
 Note: Hard tabs in the expansion text are required. When the snippet is
 expanded in the text and 'expandtab' is set, each tab will be replaced with
@@ -229,7 +250,7 @@ the tab stop. This text then can be copied throughout the snippet using "$#",
 given # is the same number as used before. So, to make a C for loop: >
 
     snippet for
-        for (${2:i}; $2 < ${1:count}; $1++) {
+        for (${2:i}=0; $2 < ${1:count}; $2++) {
             ${4}
         }
 
@@ -378,6 +399,28 @@ Perhaps some of these features will be added in a later release.
 
 ==============================================================================
 CHANGELOG                                                 *SnipMate-changelog*
+
+0.87 - 2014-01-04
+-----------------
+
+* Stop indenting empty lines when expanding snippets
+* Support extends keyword in .snippets files
+* Fix visual placeholder support
+* Add zero tabstop support
+* Support negative 'softtabstop'
+* Add g:snipMate_no_default_aliases option
+* Add <Plug>snipMateTrigger for triggering an expansion inside a snippet
+* Add snipMate#CanBeTriggered() function
+
+0.86 - 2013-06-15
+-----------------
+* Use more idiomatic <Plug> maps
+* Remove most select mode mappings
+
+* Fix disappearing variables bug (hpesoj)
+* Fix cursor position bug when a variable is on the same line as the stop
+* Fix undo point creation causing problems with Supertab
+* Fix bug where SnipMate would use a typed trigger as a regular expression
 
 0.85 - 2013-04-03
 -----------------
