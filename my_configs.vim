@@ -17,6 +17,8 @@
 
  set foldmethod=indent
 
+ let NERDTreeShowHidden=1
+
  nmap <S-Enter> O<Esc>j
  nmap <CR> o<Esc>k
 
