@@ -52,6 +52,12 @@ for ${1:condition}${1/(.+)/ /}{
 }
 endsnippet
 
+snippet fori "Integer for loop" b
+for ${1:i} := 0; $1 < ${2:N}; $1++ {
+	${0:${VISUAL}}
+}
+endsnippet
+
 snippet forr "For range loop" b
 for ${2:name} := range ${1:collection} {
 	${0:${VISUAL}}
@@ -105,6 +111,12 @@ func ${1:name}(${2:params})${3/(.+)/ /}${3:type} {
 }
 endsnippet
 
+snippet funch "HTTP handler" b
+func ${1:handler}(${2:w} http.ResponseWriter, ${3:r} *http.Request) {
+	${0:${VISUAL}}
+}
+endsnippet
+
 # types and variables
 snippet map "Map type" b
 map[${1:keytype}]${2:valtype}
@@ -129,3 +141,10 @@ snippet json "JSON field"
 endsnippet
 
 # vim:ft=snippets:
+
+# error handling
+snippet err "Basic error handling" b
+if err != nil {
+	log.${1:Fatal}(err)
+}
+endsnippet
