@@ -23,3 +23,4 @@
  nmap <CR> o<Esc>k
 
  au BufRead,BufNewFile *.jinja2 setfiletype html
+ au BufNewFile,BufRead *.handlebars set syntax=html
