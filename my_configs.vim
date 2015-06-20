@@ -24,3 +24,4 @@
 
  au BufRead,BufNewFile *.jinja2 setfiletype html
  au BufNewFile,BufRead *.handlebars set syntax=html
+ au BufNewFile,BufRead *.py set shiftwidth=2
