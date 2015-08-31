@@ -24,4 +24,9 @@
 
  au BufRead,BufNewFile *.jinja2 setfiletype html
  au BufNewFile,BufRead *.handlebars set syntax=html
+ au BufNewFile,BufRead *.tag set syntax=html
  au BufNewFile,BufRead *.py set shiftwidth=2
+
+ "Any additional syntastic syntax checkers
+ let g:syntastic_python_checkers = ['pylint']
+ let g:syntastic_sh_checkers = ['shellcheck']
