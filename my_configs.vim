@@ -25,7 +25,7 @@
  au BufRead,BufNewFile *.handlebars setfiletype html
  au BufRead,BufNewFile *.tag setfiletype html
  au BufNewFile,BufRead *.tag set syntax=html
- au BufNewFile,BufRead *.py set shiftwidth=2
+ au FileType python set shiftwidth=4
 
  "Any additional syntastic syntax checkers
  let g:syntastic_python_checkers = ['pylint']
@@ -45,4 +45,6 @@
  let vimsyn_folding='af'       " Vim script
  let xml_syntax_folding=1      " XML
 
+ au FileType javascript set foldmethod=indent
+ 
  autocmd FileType make setlocal noexpandtab
