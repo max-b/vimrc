@@ -15,8 +15,6 @@
  syntax on
  filetype indent plugin on
 
- set foldmethod=indent
-
  let NERDTreeShowHidden=1
 
  nmap <S-Enter> O<Esc>j
@@ -30,3 +28,17 @@
  "Any additional syntastic syntax checkers
  let g:syntastic_python_checkers = ['pylint']
  let g:syntastic_sh_checkers = ['shellcheck']
+ let g:syntastic_JavaScript_checkers = ['jshint']
+
+
+ set foldmethod=syntax
+ set foldlevelstart=1
+
+ let javaScript_fold=1         " JavaScript
+ let perl_fold=1               " Perl
+ let php_folding=1             " PHP
+ let r_syntax_folding=1        " R
+ let ruby_fold=1               " Ruby
+ let sh_fold_enabled=1         " sh
+ let vimsyn_folding='af'       " Vim script
+ let xml_syntax_folding=1      " XML
