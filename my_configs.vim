@@ -22,6 +22,8 @@
 
  au BufRead,BufNewFile *.jinja2 setfiletype html
  au BufNewFile,BufRead *.handlebars set syntax=html
+ au BufRead,BufNewFile *.handlebars setfiletype html
+ au BufRead,BufNewFile *.tag setfiletype html
  au BufNewFile,BufRead *.tag set syntax=html
  au BufNewFile,BufRead *.py set shiftwidth=2
 
@@ -42,3 +44,5 @@
  let sh_fold_enabled=1         " sh
  let vimsyn_folding='af'       " Vim script
  let xml_syntax_folding=1      " XML
+
+ autocmd FileType make setlocal noexpandtab
