@@ -3,10 +3,17 @@
 "For using Mouse 
  set mouse=a
 
+"Function for remapping commands
+ fun! SetupCommandAlias(from, to)
+   exec 'cnoreabbrev <expr> '.a:from
+         \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+ endfun
+
  "let g:solarized_termcolors=16
 
  let g:solarized_termtrans = 1
- set background=light
+ set background=dark
  colorscheme solarized 
 
  "This method uses a command line abbreviation so %% expands to the full path of the directory that contains the current file.
@@ -48,3 +55,13 @@
  au FileType javascript set foldmethod=indent
  
  autocmd FileType make setlocal noexpandtab
+
+ "Remap semicolon to colon
+ nnoremap ; :
+ vnoremap ; :
+
+
+ call SetupCommandAlias("wsudo","w !sudo tee %")
+
+ "Copy to clipboard
+ vnoremap <C-c> "+y
