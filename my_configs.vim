@@ -65,3 +65,19 @@
 
  "Copy to clipboard
  vnoremap <C-c> "+y
+
+ "Use ag for Ack
+ let g:ackprg = 'ag --nogroup --nocolor --column'
+
+ "Statusline already shows -- INSERT -- mode so we can hide it from vanilla vim
+ set noshowmode
+
+ "Show relative filepath in statusline
+ let g:lightline = {
+       \ 'component_function': {
+       \   'filename': 'LightLineFilename'
+       \ }
+       \ }
+ function! LightLineFilename()
+   return expand('%')
+ endfunction
