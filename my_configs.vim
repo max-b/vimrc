@@ -75,12 +75,33 @@
  "Statusline already shows -- INSERT -- mode so we can hide it from vanilla vim
  set noshowmode
 
- "Show relative filepath in statusline
+ "Remove extra line on bottom
+ set cmdheight=0
+
  let g:lightline = {
+       \ 'colorscheme': 'solarized',
+       \ 'active': {
+       \   'left': [ ['mode', 'paste'],
+       \             ['fugitive', 'readonly', 'filename', 'modified'] ],
+       \   'right': [ [ 'lineinfo' ], ['percent'] ]
+       \ },
+       \ 'component': {
+       \   'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
+       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+       \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+       \ },
+       \ 'component_visible_condition': {
+       \   'readonly': '(&filetype!="help"&& &readonly)',
+       \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+       \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+       \ },
        \ 'component_function': {
        \   'filename': 'LightLineFilename'
+       \ },
+       \ 'separator': { 'left': ' ', 'right': ' ' },
+       \ 'subseparator': { 'left': ' ', 'right': ' ' }
        \ }
-       \ }
+
  function! LightLineFilename()
    return expand('%')
  endfunction
