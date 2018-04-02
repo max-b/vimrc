@@ -51,9 +51,12 @@
  let sh_fold_enabled=1         " sh
  let vimsyn_folding='af'       " Vim script
  let xml_syntax_folding=1      " XML
+ let markdown_folding=1
 
  au FileType javascript set foldmethod=indent
  
+ au FileType markdown set foldmethod=expr
+
  autocmd FileType make setlocal noexpandtab
 
  "Remap semicolon to colon
