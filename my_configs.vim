@@ -112,5 +112,24 @@
    return expand('%')
  endfunction
 
+ " fix meta-keys which generate <Esc>a .. <Esc>z
+ " let c='a'
+ " while c <= 'z'
+ "   exec "set <M-".toupper(c).">=\e".c
+ "   exec "imap \e".c." <M-".toupper(c).">"
+ "   let c = nr2char(1+char2nr(c))
+ " endw
+
+ " vv to generate new vertical split
+ nnoremap <silent> vv <C-w>v
+
+ " leaderq to quite
+ map <leader>q :q<cr>
+
+ "Allows normal word motion since vim-wordmotion is installed
+ vnoremap W w
+ vnoremap B b
+ vnoremap E e
+
  "Remove extra line on bottom
  set cmdheight=0
