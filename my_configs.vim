@@ -24,8 +24,17 @@
 
  let NERDTreeShowHidden=1
 
- nmap <S-Enter> O<Esc>j
- nmap <CR> o<Esc>k
+ noremap <S-Enter> O<Esc>j
+ noremap <CR> o<Esc>k
+
+ "Fix CR for command line window
+ augroup commandlinewindow
+   autocmd!
+   autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+ augroup END
+
+ "Fix CR for quickfix window
+ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
  au BufRead,BufNewFile *.jinja2 setfiletype html
  au BufNewFile,BufRead *.handlebars set syntax=html
