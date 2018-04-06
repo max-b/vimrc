@@ -140,5 +140,7 @@
  " Zoom the tmux runner pane
  map <Leader>vz :VimuxZoomRunner<CR>
 
+ map <c-r><c-f> :CtrlPRegister<cr>
+
  "Remove extra line on bottom
  set cmdheight=0
