@@ -84,9 +84,6 @@
  "Statusline already shows -- INSERT -- mode so we can hide it from vanilla vim
  set noshowmode
 
- "Remove extra line on bottom
- set cmdheight=0
-
  let g:lightline = {
        \ 'colorscheme': 'solarized',
        \ 'active': {
@@ -114,3 +111,6 @@
  function! LightLineFilename()
    return expand('%')
  endfunction
+
+ "Remove extra line on bottom
+ set cmdheight=0
