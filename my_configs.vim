@@ -131,5 +131,14 @@
  vnoremap B b
  vnoremap E e
 
+ "leader vp opens vimus prompt command
+ map <Leader>vp :VimuxPromptCommand<CR>
+ " Run last command executed by VimuxRunCommand
+ map <Leader>vl :VimuxRunLastCommand<CR>
+ " Inspect runner pane
+ map <Leader>vi :VimuxInspectRunner<CR>
+ " Zoom the tmux runner pane
+ map <Leader>vz :VimuxZoomRunner<CR>
+
  "Remove extra line on bottom
  set cmdheight=0
