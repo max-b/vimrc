@@ -48,6 +48,13 @@
  let g:syntastic_sh_checkers = ['shellcheck']
  let g:syntastic_JavaScript_checkers = ['jshint']
 
+ "Setup ALE to use eslint
+ let g:ale_linters = {'javascript': ['eslint']}
+
+ let g:ale_fixers = {
+ \   'javascript': ['eslint'],
+ \}
+
 
  set foldmethod=syntax
  set foldlevelstart=1
@@ -62,8 +69,11 @@
  let xml_syntax_folding=1      " XML
  let markdown_folding=1
 
- au FileType javascript set foldmethod=indent
- 
+ " au FileType javascript set foldmethod=indent
+ augroup javascript_folding
+   au!
+   au FileType javascript setlocal foldmethod=syntax
+ augroup END
  au FileType markdown set foldmethod=expr
 
  autocmd FileType make setlocal noexpandtab
@@ -147,6 +157,9 @@
  nnoremap <silent> <c-h> :call Focus('left', 'h')<CR>
  nnoremap <silent> <c-k> :call Focus('up', 'k')<CR>
  nnoremap <silent> <c-j> :call Focus('down', 'j')<CR>
+
+ "Set Glg to pretty formatted git log
+ " command -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
 
  "Remove extra line on bottom
  set cmdheight=0
