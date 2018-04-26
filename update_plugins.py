@@ -60,6 +60,7 @@ vim-javascript https://github.com/pangloss/vim-javascript.git
 vim-jsx https://github.com/mxw/vim-jsx.git
 supertab https://github.com/ervandew/supertab.git
 vim-wordmotion https://github.com/chaoren/vim-wordmotion.git
+i3-vim-focus git@github.com:max-b/i3-vim-focus.git
 """.strip()
 
 GITHUB_ZIP = '%s/archive/master.zip'

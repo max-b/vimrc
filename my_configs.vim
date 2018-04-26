@@ -152,11 +152,11 @@ map <Leader>vz :VimuxZoomRunner<CR>
 
 map <c-r><c-f> :CtrlPRegister<cr>
 
-"i3-vim-nav
-nnoremap <silent> <c-l> :call Focus('right', 'l')<CR>
-nnoremap <silent> <c-h> :call Focus('left', 'h')<CR>
-nnoremap <silent> <c-k> :call Focus('up', 'k')<CR>
-nnoremap <silent> <c-j> :call Focus('down', 'j')<CR>
+"i3-vim-focus
+map gwl :call Focus('right', 'l')<CR>
+map gwh :call Focus('left', 'h')<CR>
+map gwk :call Focus('up', 'k')<CR>
+map gwj :call Focus('down', 'j')<CR>
 
 "Set Glg to pretty formatted git log
 " command -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
