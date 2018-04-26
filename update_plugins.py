@@ -47,6 +47,7 @@ vim-repeat https://github.com/tpope/vim-repeat
 vim-commentary https://github.com/tpope/vim-commentary
 vim-go https://github.com/fatih/vim-go
 vim-gitgutter https://github.com/airblade/vim-gitgutter
+vim-git https://github.com/tpope/vim-git.git
 gruvbox https://github.com/morhetz/gruvbox
 vim-flake8 https://github.com/nvie/vim-flake8
 vim-pug https://github.com/digitaltoad/vim-pug
@@ -55,6 +56,10 @@ vim-abolish https://github.com/tpope/tpope-vim-abolish
 mru.vim https://github.com/vim-scripts/mru.vim
 rust.vim https://github.com/rust-lang/rust.vim
 vim-markdown https://github.com/plasticboy/vim-markdown
+vim-javascript https://github.com/pangloss/vim-javascript.git
+vim-jsx https://github.com/mxw/vim-jsx.git
+supertab https://github.com/ervandew/supertab.git
+vim-wordmotion https://github.com/chaoren/vim-wordmotion.git
 """.strip()
 
 GITHUB_ZIP = '%s/archive/master.zip'
