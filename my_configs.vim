@@ -49,15 +49,22 @@ let g:syntastic_sh_checkers = ['shellcheck']
 let g:syntastic_JavaScript_checkers = ['jshint']
 
 "Setup ALE to use eslint
-let g:ale_linters = {'javascript': ['eslint']}
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\   'go': ['go', 'golint', 'errcheck'],
+\   'c': ['gcc'],
+\   'rust': ['rls', 'rustfmt']
+\}
+
+let g:ale_rust_rls_toolchain='stable'
+
+let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Werror -Werror-implicit-function-declaration'
 
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
+\   'rust': ['rustfmt'],
 \}
-
-
-set foldmethod=syntax
-set foldlevelstart=1
 
 let javaScript_fold=1         " JavaScript
 let perl_fold=1               " Perl
