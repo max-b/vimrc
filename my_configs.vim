@@ -174,6 +174,25 @@ map <silent> gmj :call Move('L')<CR>
 "occasionally
 set belloff=all
 
+"vim-easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_inc_highlight = 0
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{char}{label}`
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" HJKL motions: Line motions
+" map <C-M>l <Plug>(easymotion-lineforward)
+" map <C-M>j <Plug>(easymotion-j)
+" map <C-M>k <Plug>(easymotion-k)
+" map <C-M>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
