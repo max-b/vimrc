@@ -1,0 +1,11 @@
+[2018-05-02 07:37:04.122052 -07:00] INFO [src/main.rs:141] Direction name: l
+[2018-05-02 07:37:04.122124 -07:00] INFO [src/main.rs:145] No valid direction passed in arguments
+[2018-05-02 07:37:05.611231 -07:00] INFO [src/main.rs:141] Direction name: a
+[2018-05-02 07:37:05.611332 -07:00] INFO [src/main.rs:145] No valid direction passed in arguments
+[2018-05-02 07:37:09.021162 -07:00] INFO [src/main.rs:141] Direction name: p
+[2018-05-02 07:37:09.021511 -07:00] INFO [src/main.rs:145] No valid direction passed in arguments
+[2018-05-02 07:37:11.254558 -07:00] INFO [src/main.rs:141] Direction name: right
+[2018-05-02 07:37:11.258725 -07:00] INFO [src/main.rs:104] Window name = Window { id: 65011715 }
+[2018-05-02 07:37:11.283778 -07:00] INFO [src/main.rs:120] command sent = focus right
+[2018-05-02 07:37:11.284042 -07:00] INFO [src/main.rs:121] result = Command { outcomes: [CommandOutcome { success: true, error: None }] }
+[2018-05-02 07:37:11.285260 -07:00] INFO [src/main.rs:152] i3-vim-focus successfully ran: "Result = Command { outcomes: [CommandOutcome { success: true, error: None }] }"
