@@ -160,10 +160,20 @@ map <Leader>vz :VimuxZoomRunner<CR>
 map <c-r><c-f> :CtrlPRegister<cr>
 
 "i3-vim-focus
-map gwl :call Focus('right', 'l')<CR>
-map gwh :call Focus('left', 'h')<CR>
-map gwk :call Focus('up', 'k')<CR>
-map gwj :call Focus('down', 'j')<CR>
+map <silent> gwl :call Focus('right', 'l')<CR>
+map <silent> gwh :call Focus('left', 'h')<CR>
+map <silent> gwk :call Focus('up', 'k')<CR>
+map <silent> gwj :call Focus('down', 'j')<CR>
+
+map <silent> gml :call Move('r')<CR>
+map <silent> gmh :call Move('R')<CR>
+map <silent> gmk :call Move('R')<CR>
+map <silent> gmj :call Move('L')<CR>
+
+"i3-vim-focus is causing termite to sound a bell/urgent window
+"occasionally
+set belloff=all
+
 
 "Set Glg to pretty formatted git log
 " command -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
