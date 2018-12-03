@@ -61,6 +61,8 @@ vim-jsx https://github.com/mxw/vim-jsx.git
 supertab https://github.com/ervandew/supertab.git
 vim-wordmotion https://github.com/chaoren/vim-wordmotion.git
 i3-vim-focus https://github.com/jwilm/i3-vim-focus.git
+QFEnter https://github.com/yssl/QFEnter.git
+vim-easymotion https://github.com/easymotion/vim-easymotion.git
 """.strip()
 
 GITHUB_ZIP = '%s/archive/master.zip'

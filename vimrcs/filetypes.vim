@@ -1,3 +1,6 @@
+set foldmethod=syntax
+set foldlevelstart=1
+
 """"""""""""""""""""""""""""""
 " => Python section
 """"""""""""""""""""""""""""""
@@ -21,11 +24,12 @@ au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
 
+autocmd FileType python UltiSnipsAddFiletypes python 
 
 """"""""""""""""""""""""""""""
 " => JavaScript section
 """""""""""""""""""""""""""""""
-au FileType javascript call JavaScriptFold()
+" au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
 
@@ -46,6 +50,13 @@ function! JavaScriptFold()
     setl foldtext=FoldText()
 endfunction
 
+augroup javascript_folding
+  au!
+  au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+autocmd FileType js UltiSnipsAddFiletypes javascript-node 
+autocmd FileType js UltiSnipsAddFiletypes javascript 
 
 """"""""""""""""""""""""""""""
 " => CoffeeScript section
@@ -58,6 +69,20 @@ au FileType coffee call CoffeeScriptFold()
 
 au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 
+""""""""""""""""""""""""""""""
+" => Makefile section
+"""""""""""""""""""""""""""""""
+autocmd FileType make setlocal noexpandtab
+
+""""""""""""""""""""""""""""""
+" => Markdown section
+"""""""""""""""""""""""""""""""
+au FileType markdown set foldmethod=expr
+
+""""""""""""""""""""""""""""""
+" => Rust section
+"""""""""""""""""""""""""""""""
+autocmd FileType rust UltiSnipsAddFiletypes rust 
 
 """"""""""""""""""""""""""""""
 " => Shell section
@@ -70,6 +95,7 @@ if exists('$TMUX')
     endif
 endif
 
+autocmd FileType sh UltiSnipsAddFiletypes sh
 
 """"""""""""""""""""""""""""""
 " => Twig section

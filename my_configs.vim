@@ -10,11 +10,14 @@ fun! SetupCommandAlias(from, to)
         \ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 
-"let g:solarized_termcolors=16
+" let g:solarized_termcolors=16
 
 let g:solarized_termtrans = 1
 set background=dark
 colorscheme solarized 
+set t_Co=256
+
+" colo seoul256
 
 "This method uses a command line abbreviation so %% expands to the full path of the directory that contains the current file.
 cabbr <expr> %% expand('%:p:h')
@@ -34,7 +37,7 @@ augroup commandlinewindow
 augroup END
 
 "Fix CR for quickfix window
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+"autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 au BufRead,BufNewFile *.jinja2 setfiletype html
 au BufNewFile,BufRead *.handlebars set syntax=html
@@ -50,19 +53,20 @@ let g:syntastic_JavaScript_checkers = ['jshint']
 
 "Setup ALE to use eslint
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['standard'],
 \   'python': ['flake8'],
 \   'go': ['go', 'golint', 'errcheck'],
 \   'c': ['gcc'],
-\   'rust': ['rls', 'rustfmt']
+\   'rust': ['cargo'],
 \}
+"\   'rust': ['rls', 'rustfmt']
 
 let g:ale_rust_rls_toolchain='stable'
 
 let g:ale_c_gcc_options = '-std=gnu11 -Wall -Wextra -Werror -Werror-implicit-function-declaration'
 
 let g:ale_fixers = {
-\   'javascript': ['eslint'],
+\   'javascript': ['standard'],
 \   'rust': ['rustfmt'],
 \}
 
@@ -76,27 +80,19 @@ let vimsyn_folding='af'       " Vim script
 let xml_syntax_folding=1      " XML
 let markdown_folding=1
 
-" au FileType javascript set foldmethod=indent
-augroup javascript_folding
-  au!
-  au FileType javascript setlocal foldmethod=syntax
-augroup END
-au FileType markdown set foldmethod=expr
-
-autocmd FileType make setlocal noexpandtab
-
 "Remap semicolon to colon
 nnoremap ; :
 vnoremap ; :
 
-
-call SetupCommandAlias("wsudo","w !sudo tee %")
 
 "Copy to clipboard
 vnoremap <C-c> "+y
 
 "Use ag for Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Open Ack and put the cursor in the right position
+map <leader>g :Find 
 
 "Statusline already shows -- INSERT -- mode so we can hide it from vanilla vim
 set noshowmode
@@ -140,24 +136,73 @@ endfunction
 " vv to generate new vertical split
 nnoremap <silent> vv <C-w>v
 
-" leaderq to quite
+" leaderq to quit
 map <leader>q :q<cr>
 
-"Allows normal word motion since vim-wordmotion is installed
-vnoremap W w
-vnoremap B b
-vnoremap E e
-
-"leader vp opens vimus prompt command
-map <Leader>vp :VimuxPromptCommand<CR>
-" Run last command executed by VimuxRunCommand
-map <Leader>vl :VimuxRunLastCommand<CR>
-" Inspect runner pane
-map <Leader>vi :VimuxInspectRunner<CR>
-" Zoom the tmux runner pane
-map <Leader>vz :VimuxZoomRunner<CR>
-
 map <c-r><c-f> :CtrlPRegister<cr>
+
+" fzf
+set rtp+=~/.fzf
+
+" fzf insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+imap <leader><tab> <plug>(fzf-maps-i)
+
+" fzf mru and open files
+command! FZFMru call fzf#run({
+\ 'source':  reverse(s:all_files()),
+\ 'sink':    'edit',
+\ 'options': '-m -x +s',
+\ 'down':    '40%' })
+
+function! s:all_files()
+  return extend(
+  \ filter(copy(v:oldfiles),
+  \        "v:val !~ 'fugitive:\\|NERD_tree\\|^/tmp/\\|.git/'"),
+  \ map(filter(range(1, bufnr('$')), 'buflisted(v:val)'), 'bufname(v:val)'))
+endfunction
+
+
+" Fzf fuzzy finders
+nmap <Leader>f :GFiles<CR>
+nmap <Leader>F :Files<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>m :FZFMru<CR>
+nmap <Leader>l :BLines<CR>
+nmap <Leader>L :Lines<CR>
+nmap <Leader>h :History<CR>
+nmap <Leader>c :History:<CR>
+nmap <Leader>/ :History/<CR>
+nmap <Leader>' :Marks<CR>
+nmap <Leader>s :Filetypes<CR>
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+
+command! -bang -nargs=* Ag call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+command! -bang -nargs=* FindIn call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.<q-args>, 1, <bang>0)
+
+set grepprg=rg\ --vimgrep
+nmap <c-f> :Find 
+
+vnoremap <leader>f :call VisualSelection('rgfind', '')<CR>
 
 "i3-vim-focus
 map <silent> gwl :call Focus('right', 'l')<CR>
@@ -193,6 +238,14 @@ let g:EasyMotion_smartcase = 1
 
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
+" YouCompleteMe
+let g:ycm_goto_buffer_command = 'vertical-split'
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <leader>yg :YcmCompleter GoTo<CR>
+nnoremap <leader>yd :YcmCompleter GetDoc<CR>
+
+let g:ycm_rust_src_path = '/home/maxb/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/'
+
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:ulti_expand_or_jump_res = 0
 function! ExpandSnippetOrCarriageReturn()
@@ -205,8 +258,12 @@ function! ExpandSnippetOrCarriageReturn()
 endfunction
 inoremap <expr> <CR> pumvisible() ? "<C-R>=ExpandSnippetOrCarriageReturn()<CR>" : "\<CR>"
 
+map <C-K> :py3f /usr/share/clang/clang-format-4.0/clang-format.py<cr>
+imap <C-K> <c-o>:py3f /usr/share/clang/clang-format-4.0/clang-format.py<cr>
+
+set number
+" set relativenumber
 "Set Glg to pretty formatted git log
 " command -nargs=* Glg Git! log --graph --pretty=format:'\%h - (\%ad)\%d \%s <\%an>' --abbrev-commit --date=local <args>
-
 "Remove extra line on bottom
 set cmdheight=0
